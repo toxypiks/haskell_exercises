@@ -1,0 +1,34 @@
+2025-05-30 Übung Programmierparadigmen
+
+x = 1
+
+x = x + 1 -- Endlosschleife weil Definitionen Ersetzungsdefinitionen sind
+
+- binäre Funktionen als Infix definieren mit back-ticks `xor` `mod`
+
+Es gibt Werte, Datentypen, Typklassen
+
+         3       Int       Num
+        'c'      Char      Eq
+
+Werte sind sowas wie Objekte, Datentypen sowas wie Klassen und Typklassen sind Interfaces (OOP Vergleich)
+
+otherwise :: Bool -- nullstellige Funktion die Bool liefert
+not :: Bool -> Bool -- einstellige Funktion
+&& -- zweistellige Funktion
+undefined :: GHC.Stack.Types.HasCallStack => a -- nullstellige Funktion die Wert beliebigen Datentyps liefert
+id :: a -> a -- bildet Wert eines beliebigen Typs auf Wert eines gleichen Typs ab
+maxBound :: Bounded a => a -- gibt Wert beliebigen Typs aus der Typklasse Bounded
+even :: Integral a => a -> Bool beliebiger Wert aus Typenklasse Integral wird auf einen Bool abgebildet
+
+Typvariablen beginnen mit Kleinbuchstaben, Datentypen und Typklassen mit Großbuchstaben
+
+Auswertungsprotokolle aufschreiben können
+
+Endzeilen Rekursion angucken
+
+f' 3 -> f (3-1) (1*3)
+f' 2 -> f (2-1) (3*2)
+f' 1 -> f (1-1) (6*1)
+f' 0 -> f (0-1) (6*0)
+

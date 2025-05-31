@@ -24,3 +24,7 @@ my_lenght xs = sum [1 | _ <- xs]
 -- removing all lowercase letters from a string
 
 removeNonUppercase str = [c | c <- str, c `elem` ['A'..'Z']]
+
+-- nested list comprehensions for nested lists
+
+x3 xxs = [[x | x <- xs, even x] | xs <- xxs]
