@@ -18,11 +18,13 @@ indexOf ch (x:xs) | x == ch = 0
 
 -- retrieve an element at a certain index
 
-{-elemAt :: Int -> [Char] -> Char
-elemAt x [] = undefined
-elemAt x (y:ys) | x == indexOf y ys = y
-elemAt x (y:ys) | otherwise = elemAt x+1 ys
--}
+elemAt :: [a] -> Int -> a
+elemAt [] _ = undefined
+elemAt (x:xs) n
+       | n < 0 = undefined
+       | n == 0 = x
+       | otherwise = elemAt xs (n - 1)
+
 
 -- list of alphabet !! index
 -- index = index of char in upperAlphabet + offset
