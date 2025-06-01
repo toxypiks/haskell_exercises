@@ -30,8 +30,12 @@ elemAt (x:xs) n
 -- index = index of char in upperAlphabet + offset
 -- index `mod` 26 to circle values between 0 and 26
 
+alphabetRot :: Alphabet -> Int -> Char -> Char
+alphabetRot alphabet n ch =
+    alphabet !! ((indexOf ch alphabet + n) `mod` length alphabet)
+
 upperRot :: Int -> Char -> Char
-upperRot n ch = upperAlphabet !! ((indexOf ch upperAlphabet + n) `mod` 26)
+upperRot n ch = alphabetRot upperAlphabet n ch
 
 lowerRot :: Int -> Char -> Char
-lowerRot n ch = lowerAlphabet !! ((indexOf ch lowerAlphabet + n) `mod` 26)
+lowerRot n ch = alphabetRot lowerAlphabet n ch
