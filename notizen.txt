@@ -38,3 +38,10 @@ elemAt "Hallo" 3 -> elemAt "h" (3-1)
 elemAt "Hallo" 2 -> elemAt "a" (2-1)
 elemAt "Hallo" 1 -> elemAt "l" (1-1)
 elemAt "Hallo" 0 -> l
+
+cabal project start: .cabal
+
+common warnings
+    ghc-options:
+        -Wall
+        -dynamic
