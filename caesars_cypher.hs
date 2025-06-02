@@ -19,7 +19,7 @@ isDigit :: Char -> Bool
 isDigit char = char `elem` digits
 
 isMisc :: Char -> Bool
-isMisc char = not (isUpper char || isLower char || isDigit char)
+isMisc char = char `notElem` lowerAlphabet ++ upperAlphabet ++ digits
 
 -- find index of char in list of chars
 indexOf :: Char -> Alphabet -> Int
@@ -48,3 +48,16 @@ upperRot n ch = alphabetRot upperAlphabet n ch
 
 lowerRot :: Int -> Char -> Char
 lowerRot n ch = alphabetRot lowerAlphabet n ch
+
+-- rotation function for arbitrary characters
+
+rotChar :: Int -> Char -> Char
+rotChar n ch
+        | isLower ch = lowerRot n ch
+        | isUpper ch = upperRot n ch
+        | otherwise = ch
+
+-- apply caesars cyper to a list of chars
+caesar :: Int -> String -> String
+caesar n [] = []
+caesar n (x:xs) = rotChar n x : caesar n xs
