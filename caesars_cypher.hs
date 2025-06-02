@@ -49,6 +49,9 @@ upperRot n ch = alphabetRot upperAlphabet n ch
 lowerRot :: Int -> Char -> Char
 lowerRot n ch = alphabetRot lowerAlphabet n ch
 
+digitRot :: Int -> Char -> Char
+digitRot n ch = alphabetRot digits n ch
+
 -- rotation function for arbitrary characters
 
 rotChar :: Int -> Char -> Char
@@ -68,3 +71,11 @@ caesar_map n message = map (\ch -> rotChar n ch) message
 
 rot13 :: String -> String
 rot13 message = caesar 13 message
+
+rot135 :: String -> String
+rot135 [] = []
+rot135 (ch:xs)
+       | isLower ch = lowerRot 13 ch : rot135 xs
+       | isUpper ch = upperRot 13 ch : rot135 xs
+       | isDigit ch = digitRot 5 ch : rot135 xs
+       | otherwise = ch : rot135 xs
