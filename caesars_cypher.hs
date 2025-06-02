@@ -61,3 +61,10 @@ rotChar n ch
 caesar :: Int -> String -> String
 caesar n [] = []
 caesar n (x:xs) = rotChar n x : caesar n xs
+
+-- using map
+caesar_map :: Int -> String -> String
+caesar_map n message = map (\ch -> rotChar n ch) message
+
+rot13 :: String -> String
+rot13 message = caesar 13 message
