@@ -79,3 +79,9 @@ rot135 (ch:xs)
        | isUpper ch = upperRot 13 ch : rot135 xs
        | isDigit ch = digitRot 5 ch : rot135 xs
        | otherwise = ch : rot135 xs
+
+count :: Char -> String -> Int
+count char [] = 0
+count char (x:xs)
+          | char == x = 1 + count char xs
+          | otherwise = count char xs
