@@ -1,3 +1,6 @@
+import Data.Char (toLower)
+import Data.List
+
 type Alphabet = [Char]
 
 lowerAlphabet :: Alphabet
@@ -85,3 +88,12 @@ count char [] = 0
 count char (x:xs)
           | char == x = 1 + count char xs
           | otherwise = count char xs
+
+-- use count for all letters in the alphabet in a text
+letter_freq :: [Char] -> [(Char, Int)]
+letter_freq xs =
+    let input = map toLower xs -- lower all chars in the text
+        freqs =
+            map (\char -> (char, count char input)) lowerAlphabet
+    in
+      sortBy (\(_, x) (_, y) -> compare y x) freqs -- sort tuples
