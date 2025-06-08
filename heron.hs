@@ -10,3 +10,9 @@ aux2 a eps h | (h_new - h)*(h_new - h) <= eps*eps = h_new
                where h_new = ((h+a/h)*0.5)
 
 wurzel2 a eps = aux2 a eps ((1+a)*0.5)
+
+
+wurzel3 a eps = aux3 a eps ((1+a)*0.5)
+                where aux3 a eps h | (h_new - h)*(h_new - h) <= eps*eps = h_new
+                                   | otherwise = aux3 a eps h_new
+                                   where h_new = ((h+a/h)*0.5)
