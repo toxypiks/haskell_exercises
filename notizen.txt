@@ -45,3 +45,114 @@ common warnings
     ghc-options:
         -Wall
         -dynamic
+
+2025-06-06 Übung Programmierparadigmen
+
+fakultaet für -1 indem man Fall abfängt | n < 0 = error "negative argument!" Alternative Maybe
+
+Tupel
+
+Operationen == und < zulässig insofern Datentypen diese Operationen zulassen
+
+(1, 'a') < (1, 'z') True
+(1, 2) == ('a', 2) False weil unterschiedliche Typen
+
+- außerdem muss Anzahl der Elemente der vergl. Tupel gleich sein
+- fst, snd gibt erstes/zweites Paar des Tupels
+
+Listen:
+
+[True] != True
+
+cons Operator nicht um hinten Element dranzuhängen also nicht [1,2]:3 sondern nur 1:[2,3]
+cons Operator ist rechtsassoziativ
+[1,2,3] == 1:2:3:[]
+
+x:xs:xss Liste von Listen
+
+warum (x:xs) nicht x:xs? weil Funktionsanwendung vorrang hätte, also ohne Klammer würde die Funktion nicht auf xs aufgewendet werden, generell Fehler (head' x) :xs Falsch!
+
+[1,2,3] +++ [4] -> 1:([2,3] +++ 4)
+[2,3] +++ [4] -> 1:(2:([3] +++ 4))
+[3] +++ [4] -> 1:(2:(3:([] +++ 4)))
+
+my_reverse' [1,2,3] -> f [1,2,3] []
+                    -> f [2,3] [1]
+                    -> f [3] [1,2]
+                    -> f [] [3,2,1]
+                    -> [3,2,1]
+
+mit acc schneller als ohne, weil ohne O(n^2) mit O(i)
+
+
+Quadratwurzel heron
+
+wurzel :: Double -> Double -> Double
+wurzel a eps
+
+Startwert h0 = (1 + a)*0.5
+
+Formel = hn+1 = (hn + a/hn)*0.5
+
+a = soll gewurzelt werden
+
+innere Funktion Startwert und Rekursion, so lange wie:
+hn - hn+1 <= eps
+                            h0
+wurzel a eps = aux a eps ((1+a)*0.5) ((1+a)*0.5+2*eps)
+
+aux :: Double -> Double -> Double -> Double -> Double
+aux a eps h h_old| (h - h_old)*(h - h_old) <= eps*eps = h
+                 | otherwise = aux a eps ((h+a/h)*0.5) h
+                                           
+hn+1 = formel h
+
+
+|x| < |y|
+
+0.1    0.2
+
+-0.5   0.2
+
+x^2  < y^2
+
+0.25  0.04 
+
+hn
+hn+1
+
+aux2 :: Double -> Double -> Double -> Double
+aux2 a eps h | (h_new - h)*(h_new - h) <= eps*eps = h_new
+             | otherwise = aux a eps h_new  
+               where h_new = ((h+a/h)*0.5)
+
+=== 2025-06-13 ===
+
+Präfix Operatoren haben höhere Präzedenz als infix Operatoren
+
+my_elem elem (x:xs)
+        | elem == x = return True
+        | otherwise my_elem elem xs
+
+Funktion höherer Ordnung bekommen entweder eine Funktion als Parameter oder gibt eine Funktion zurück
+
+=== 2025-06-20 ===
+
+bei read muss Typ der Rückgabe angegeben werden read "1" :: Int zBb
+
+6 Typklassen für eigene Datenstrukturen, ansonnsten Funktionen definieren für weitere Typklassen
+
+data Liste = Leer | Int :+: Liste deriving (Show) mit : am Anfang -> infix Konstruktor
+
+1:+:2:+:3:+:4:+:Leer
+
+data Liste = Leer | a :+: Liste deriving (Show) -> für allgemeine Datentypen
+
+Maybe -> Weiterverarbeiten von fehlenden Werten
+
+data Maybe a = Nothing | Just a -> Nothing und Just sind Konstruktoren
+
+fak n | n < 0 = Nothing
+      | otherwise = Just (f n)
+      where f 0 = 1
+            f n = n * f (n-1)
