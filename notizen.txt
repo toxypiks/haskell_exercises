@@ -156,3 +156,63 @@ fak n | n < 0 = Nothing
       | otherwise = Just (f n)
       where f 0 = 1
             f n = n * f (n-1)
+
+=== 2025-06-27 ===
+
+(x:y):z oder x:(y:z) -> Unterschied
+
+Sections angucken
+
+C:
+
+void tausche(int werte[], int i, int j)
+{
+    int tmp = werte[i];
+    werte[i] = werte[j];
+    werte[j] = werte[tmp];        
+}
+
+int werte[] implizit call bei reference
+
+void selection_sort(int n, int werte[])
+{
+    for(size_t i = 0; i < n - 1; ++i) {
+        int m = i;
+        for (size_t j = i + 1; j < n; ++ j) {
+            if (werte[m] > werte [j]) {
+           m = j;           
+         }    
+        }
+        int tmp = werte[m];
+        werte[m] = werte[i];
+        werte[i] = werte[tmp];
+     }
+}
+
+Haskell:
+
+entferne _ [] = []
+entferne wert (x:xs)
+         | wert == x = xs
+         | otherwise = x:entferne wert xs
+
+kleinstes [] = error "leere liste"
+kleinstes [x] = x
+kleinstes (x:xs) = min x (kleinstes xs)
+
+selection_sort [] = []
+selection_sort xs = let m = kleinstes xs
+                    in m:selection_sort (entferne m xs)
+
+quicksort xs = let pivot = !! xs (length xs `div` 2)
+                   ls =  [x | x <- xs, x < pivot]
+                   ps = [x | x <- xs, x == p]
+                   rs = [x | x <- xs, x > p]
+                   in quicksort ls ++ ps ++ quicksort rs
+
+nats = f 1
+       where f n = n:f (n+1)
+
+nats -> f 1
+     -> 1:f (1+1) -> 1:f 2
+     -> 1:2:f (2+1) -> 1:2:f 3
